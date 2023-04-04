@@ -1,7 +1,7 @@
 from django.db.models import Count
 
 from .models import *
-
+#sssss
 menu = [{'title': "О сайте", 'url_name': 'about'},
         {'title': "Добавить статью", 'url_name': 'add_page'},
         {'title': "Обратная связь", 'url_name': 'contact'},
@@ -9,7 +9,7 @@ menu = [{'title': "О сайте", 'url_name': 'about'},
         ]
 
 class DataMixin:
-    paginate_by = 2
+    paginate_by = 20
     def get_user_context(self, **kwargs):
         context = kwargs
         cats = Category.objects.annotate(Count('women'))
