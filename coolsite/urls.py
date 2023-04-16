@@ -20,10 +20,14 @@ from coolsite import settings
 from women.views import *
 from django.urls import path, include
 
+from women.views import WomenAPIView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('captcha/', include('captcha.urls')),
-    path('', include('women.urls')),  # Кароче осы жереде nwomen барго соны если что озгертуге болады просто women
+    path('', include('women.urls')),
+    path('api/v1/womenlist/', WomenAPIView.as_view()),
+    path('api/v1/womenlist/<int:pk>/', WomenAPIView.as_view()),
 ]
 
 if settings.DEBUG:
@@ -36,6 +40,7 @@ if settings.DEBUG:
 
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
+        path('api-auth/', include('rest_framework.urls'))
     ] + urlpatterns
 
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

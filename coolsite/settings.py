@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'captcha',
-    'women.apps.WomenConfig'
+    'women.apps.WomenConfig',
+    'rest_framework',
+
 ]
 
 MIDDLEWARE = [
