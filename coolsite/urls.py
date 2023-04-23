@@ -20,14 +20,15 @@ from coolsite import settings
 from women.views import *
 from django.urls import path, include
 
-from women.views import WomenAPIView
+from women.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('captcha/', include('captcha.urls')),
     path('', include('women.urls')),
-    path('api/v1/womenlist/', WomenAPIView.as_view()),
-    path('api/v1/womenlist/<int:pk>/', WomenAPIView.as_view()),
+    path('api/v1/women/', WomenAPIList.as_view()),
+    path('api/v1/women/<int:pk>/', WomenAPIUpdate.as_view()),
+    path('api/v1/womendelete/<int:pk>/', WomenAPIDestroy.as_view()),
 ]
 
 if settings.DEBUG:
