@@ -26,9 +26,9 @@ urlpatterns = [
     path('captcha/', include('captcha.urls')),
     path('', include('women.urls')),
     path('api/v1/drf-auth/', include('rest_framework.urls')),
-    path('api/v1/women/', WomenAPIList.as_view()),
-    path('api/v1/women/<int:pk>/', WomenAPIUpdate.as_view()),
-    path('api/v1/womendelete/<int:pk>/', WomenAPIDestroy.as_view()),
+    path('api/v1/merch/', WomenAPIList.as_view()),
+    path('api/v1/merch/<int:pk>/', WomenAPIUpdate.as_view()),
+    path('api/v1/merchdelete/<int:pk>/', WomenAPIDestroy.as_view()),
     path('api/v1/auth/', include('djoser.urls')),  # new
     re_path(r'^auth/', include('djoser.urls.authtoken')),  # new
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
