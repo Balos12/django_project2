@@ -13,6 +13,9 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import defaults
 from rest_framework import generics
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import WomenSerializer
@@ -22,22 +25,30 @@ from .utils import *
 from .models import Women, Category
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 
+class WomenAPIListPagination(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = 'page_size'
+    max_page_size = 2
+
 class WomenAPIList(generics.ListCreateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
-    # permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+    pagination_class = WomenAPIListPagination
 
 
 class WomenAPIUpdate(generics.RetrieveUpdateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
-    permission_classes = (IsOwnerOrReadOnly, )
+    permission_classes = (IsOwnerOrReadOnly,IsAuthenticated )
+    # authentication_classes = (TokenAuthentication, )
 
 
 class WomenAPIDestroy(generics.RetrieveDestroyAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
-    permission_classes = (IsAdminOrReadOnly, )
+    permission_classes = (IsAdminOrReadOnly )
+
 # class WomenAPIView(APIView):
 #     def get(self, request):
 #         w = Women.objects.all()
